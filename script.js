@@ -168,7 +168,6 @@ function newEstimate() {
   clearCopyFeedback();
   calculate();
   saveDraft();
-  detailFields[0].focus();
 }
 
 function whatsappText() {
