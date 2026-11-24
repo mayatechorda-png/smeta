@@ -66,8 +66,15 @@
     </section>
     <p class="print-only signature">Подпись ____________________</p>
     <div class="actions screen-only">
+      <button class="button" id="new-estimate" type="button">Новая смета</button>
+      <button class="button" id="copy-estimate" type="button">Скопировать для WhatsApp</button>
       <button class="button primary-button" id="print" type="button">Сохранить PDF</button>
     </div>
+    <p class="copy-status screen-only" id="copy-status" role="status"></p>
+    <section class="card copy-fallback screen-only" id="copy-fallback" hidden>
+      <label for="copy-text">Текст для копирования вручную</label>
+      <textarea id="copy-text" rows="7" readonly></textarea>
+    </section>
   </main>
 
   <template id="item-template">

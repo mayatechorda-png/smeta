@@ -82,10 +82,12 @@ button:hover { border-color: var(--accent); }
 .breakdown dd { text-align: right; min-width: 0; }
 .total { color: var(--accent); font-size: clamp(1.25rem, 4vw, 1.9rem); font-weight: 750; letter-spacing: -.025em; }
 
-.notes textarea { resize: vertical; margin-top: .3rem; }
+.notes textarea, .copy-fallback textarea { resize: vertical; margin-top: .3rem; }
 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: .65rem; margin-top: 1rem; }
 .primary-button { background: var(--accent); color: white; }
 .primary-button:hover { background: #1d4296; }
+.copy-status { color: var(--accent); margin-top: .5rem; }
+.copy-fallback { margin-top: .75rem; }
 .print-only { display: none; }
 
 .visually-hidden, .mobile-label {
