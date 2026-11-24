@@ -65,8 +65,20 @@ button:hover { border-color: var(--accent); }
 .line-amount, .breakdown dd { font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 .line-amount { font-weight: 650; }
 #add-item { margin-top: .8rem; }
-.breakdown { margin-left: auto; }
+.adjustments {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 30rem;
+  gap: .75rem;
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+.breakdown { max-width: 28rem; margin-left: auto; }
 .breakdown > div { display: flex; justify-content: space-between; align-items: baseline; gap: .75rem; }
+.breakdown > [hidden] { display: none; }
+.breakdown > div + div { margin-top: .35rem; }
+.breakdown .total { margin-top: .7rem; padding-top: .7rem; border-top: 1px solid var(--border); }
 .breakdown dd { text-align: right; min-width: 0; }
 .total { color: var(--accent); font-size: clamp(1.25rem, 4vw, 1.9rem); font-weight: 750; letter-spacing: -.025em; }
 
