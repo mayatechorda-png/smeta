@@ -13,21 +13,22 @@
       <h1>Смета за 5 минут</h1>
       <p>Заполните реквизиты и добавьте позиции. Суммы посчитаются автоматически.</p>
     </header>
+    <h1 class="print-only print-title" id="print-title"></h1>
 
     <section class="card" aria-labelledby="details-title">
       <h2 id="details-title">Реквизиты</h2>
       <div class="details">
-        <label>От кого<input id="sender" type="text" placeholder="Имя или организация"></label>
-        <label>Для кого<input id="recipient" type="text" placeholder="Имя или организация"></label>
-        <label>Номер сметы<input id="estimate-number" type="text" value="1"></label>
-        <label>Дата<input id="estimate-date" type="date"></label>
+        <label>От кого<input id="sender" type="text" placeholder="Имя или организация" data-print><span class="print-only print-value"></span></label>
+        <label>Для кого<input id="recipient" type="text" placeholder="Имя или организация" data-print><span class="print-only print-value"></span></label>
+        <label class="screen-only">Номер сметы<input id="estimate-number" type="text" value="1"></label>
+        <label class="screen-only">Дата<input id="estimate-date" type="date"></label>
       </div>
     </section>
 
     <section class="card" aria-labelledby="items-title">
       <h2 id="items-title">Позиции</h2>
       <table class="items" aria-labelledby="items-title">
-        <colgroup><col class="name-column"><col><col><col><col><col class="remove-column"></colgroup>
+        <colgroup><col class="name-column"><col><col><col><col><col class="remove-column screen-only"></colgroup>
         <thead>
           <tr>
             <th scope="col">Наименование</th>
@@ -35,7 +36,7 @@
             <th scope="col">Единица</th>
             <th scope="col">Цена</th>
             <th scope="col">Сумма</th>
-            <th scope="col"><span class="visually-hidden">Действия</span></th>
+            <th class="screen-only" scope="col"><span class="visually-hidden">Действия</span></th>
           </tr>
         </thead>
         <tbody id="items"></tbody>
@@ -57,16 +58,26 @@
         <div class="total"><dt>Итого к оплате</dt><dd id="total" aria-live="polite">0 ₸</dd></div>
       </dl>
     </section>
+
+    <section class="card notes">
+      <label for="comment">Комментарий</label>
+      <textarea id="comment" rows="3" placeholder="Сроки, условия оплаты" data-print></textarea>
+      <div class="print-only print-value"></div>
+    </section>
+    <p class="print-only signature">Подпись ____________________</p>
+    <div class="actions screen-only">
+      <button class="button primary-button" id="print" type="button">Сохранить PDF</button>
+    </div>
   </main>
 
   <template id="item-template">
     <tr>
-      <td class="item-name"><label><span class="mobile-label">Наименование</span><input data-field="name" type="text" placeholder="Товар или услуга"></label></td>
-      <td><label><span class="mobile-label">Количество</span><input data-field="quantity" inputmode="decimal" type="text" placeholder="0"></label></td>
-      <td><label><span class="mobile-label">Единица</span><select data-field="unit"><option>шт</option><option>час</option><option>услуга</option></select></label></td>
-      <td><label><span class="mobile-label">Цена</span><input data-field="price" inputmode="decimal" type="text" placeholder="0"></label></td>
+      <td class="item-name"><label><span class="mobile-label">Наименование</span><input data-field="name" type="text" placeholder="Товар или услуга" data-print><span class="print-only print-value"></span></label></td>
+      <td><label><span class="mobile-label">Количество</span><input data-field="quantity" inputmode="decimal" type="text" placeholder="0" data-print><span class="print-only print-value"></span></label></td>
+      <td><label><span class="mobile-label">Единица</span><select data-field="unit" data-print><option>шт</option><option>час</option><option>услуга</option></select><span class="print-only print-value"></span></label></td>
+      <td><label><span class="mobile-label">Цена</span><input data-field="price" inputmode="decimal" type="text" placeholder="0" data-print><span class="print-only print-value"></span></label></td>
       <td class="item-amount"><span class="mobile-label">Сумма</span><span class="line-amount">0 ₸</span></td>
-      <td class="item-action"><button type="button" class="remove-item" aria-label="Удалить позицию">✕</button></td>
+      <td class="item-action screen-only"><button type="button" class="remove-item" aria-label="Удалить позицию">✕</button></td>
     </tr>
   </template>
 </body>

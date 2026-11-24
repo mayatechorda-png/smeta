@@ -82,6 +82,12 @@ button:hover { border-color: var(--accent); }
 .breakdown dd { text-align: right; min-width: 0; }
 .total { color: var(--accent); font-size: clamp(1.25rem, 4vw, 1.9rem); font-weight: 750; letter-spacing: -.025em; }
 
+.notes textarea { resize: vertical; margin-top: .3rem; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: .65rem; margin-top: 1rem; }
+.primary-button { background: var(--accent); color: white; }
+.primary-button:hover { background: #1d4296; }
+.print-only { display: none; }
+
 .visually-hidden, .mobile-label {
   position: absolute;
   width: 1px;
@@ -114,4 +120,35 @@ button:hover { border-color: var(--accent); }
 
 @media screen and (max-width: 420px) {
   .details { grid-template-columns: minmax(0, 1fr); }
+}
+
+@page { size: A4; margin: 15mm; }
+
+@media print {
+  :root { color: #000; background: #fff; font-size: 11pt; }
+  .estimate { width: auto; margin: 0; }
+  .page-header, .screen-only, .adjustments, button, input, select, textarea, .mobile-label {
+    display: none !important;
+  }
+  .print-only { display: block; }
+  .print-title { font-size: 21pt; letter-spacing: normal; margin-bottom: 6mm; }
+  .print-value { font-size: 11pt; font-weight: 400; overflow-wrap: anywhere; white-space: pre-wrap; }
+  .details .print-value { margin-top: 1mm; }
+  .card { border: 0; border-radius: 0; padding: 0; }
+  .card + .card { margin-top: 5mm; }
+  h1, h2, .notes > label { break-after: avoid; }
+  .details, .items tr, .totals, .signature { break-inside: avoid; }
+  .name-column { width: 38%; }
+  .items :is(th, td) {
+    border: 1px solid #777;
+    padding: 2mm;
+    color: #000;
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+  .items :is(th, td):first-child { padding-left: 2mm; }
+  .items :is(th, td):nth-child(n+4) { text-align: right; }
+  .breakdown { max-width: 84mm; }
+  .breakdown .total { color: #000; font-size: 14pt; }
+  .signature { margin-top: 7mm; }
 }

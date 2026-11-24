@@ -4,6 +4,9 @@ const items = document.querySelector("#items");
 const template = document.querySelector("#item-template");
 const addButton = document.querySelector("#add-item");
 const dateField = document.querySelector("#estimate-date");
+const numberField = document.querySelector("#estimate-number");
+const printButton = document.querySelector("#print");
+const printTitle = document.querySelector("#print-title");
 const adjustments = document.querySelector(".adjustments");
 const discountField = document.querySelector("#discount-rate");
 const taxField = document.querySelector("#tax-rate");
@@ -22,6 +25,18 @@ function today() {
   const month = String(now.getMonth() + 1).padStart(2, "0");
   const day = String(now.getDate()).padStart(2, "0");
   return `${now.getFullYear()}-${month}-${day}`;
+}
+
+function estimateTitle() {
+  const date = dateField.value.split("-").reverse().join(".");
+  return `Смета № ${numberField.value.trim() || "—"} от ${date || "—"}`;
+}
+
+function preparePrint() {
+  printTitle.textContent = estimateTitle();
+  for (const field of document.querySelectorAll("[data-print]")) {
+    field.nextElementSibling.textContent = field.value;
+  }
 }
 
 function readNumber(value) {
@@ -75,6 +90,11 @@ function addItem(focus = false) {
 }
 
 addButton.addEventListener("click", () => addItem(true));
+printButton.addEventListener("click", () => {
+  preparePrint();
+  window.print();
+});
+window.addEventListener("beforeprint", preparePrint);
 items.addEventListener("input", calculate);
 adjustments.addEventListener("input", calculate);
 items.addEventListener("click", (event) => {
