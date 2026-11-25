@@ -1,12 +1,13 @@
 :root {
   color-scheme: light;
-  --background: #f2f5f9;
+  --background: #f2f3e9;
   --surface: #fff;
-  --text: #182339;
-  --muted: #4e5e74;
-  --border: #d6deea;
-  --accent: #2451b7;
-  --tint: #edf3ff;
+  --text: #252c1b;
+  --muted: #555d43;
+  --border: #cbd2ba;
+  --accent: #495626;
+  --accent-hover: #36411b;
+  --tint: #e9edd9;
   font: 100%/1.5 system-ui, sans-serif;
   color: var(--text);
   background: var(--background);
@@ -16,14 +17,32 @@
 body, h1, h2, p, dl, dd { margin: 0; }
 
 .estimate { width: min(100% - 2rem, 66rem); margin: clamp(1.5rem, 5vw, 4rem) auto; }
-.page-header { margin-bottom: 1.75rem; }
+.page-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.75rem; }
 .page-header p { color: var(--muted); margin-top: .45rem; }
-h1 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.12; letter-spacing: -.04em; }
-h2 { font-size: 1.25rem; margin-bottom: 1rem; }
+.brand-mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 1px solid var(--accent);
+  border-radius: .95rem;
+  background: var(--accent);
+  color: var(--surface);
+}
+.brand-mark::before, .brand-mark::after {
+  content: "";
+  grid-area: 1 / 1;
+}
+.brand-mark::before { width: 42%; height: 54%; border: 2px solid; border-radius: .25rem; }
+.brand-mark::after { width: 19%; height: 14%; border-block: 2px solid; }
+h1 { color: var(--accent); font-size: clamp(2rem, 5vw, 3rem); line-height: 1.12; letter-spacing: -.04em; }
+h2 { color: var(--accent); font-size: 1.25rem; margin-bottom: 1rem; }
 
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: 1rem; padding: clamp(1rem, 3vw, 1.5rem); }
 .card + .card { margin-top: 1rem; }
 .details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.party-details { display: grid; gap: .65rem; }
 
 label { display: block; font-size: .875rem; font-weight: 600; min-width: 0; }
 input, select, textarea, button { font: inherit; min-width: 44px; min-height: 44px; }
@@ -74,6 +93,7 @@ button:hover { border-color: var(--accent); }
   padding-top: 1rem;
   border-top: 1px solid var(--border);
 }
+.totals { background: var(--tint); }
 .breakdown { max-width: 28rem; margin-left: auto; }
 .breakdown > div { display: flex; justify-content: space-between; align-items: baseline; gap: .75rem; }
 .breakdown > [hidden] { display: none; }
@@ -85,7 +105,7 @@ button:hover { border-color: var(--accent); }
 .notes textarea, .copy-fallback textarea { resize: vertical; margin-top: .3rem; }
 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: .65rem; margin-top: 1rem; }
 .primary-button { background: var(--accent); color: white; }
-.primary-button:hover { background: #1d4296; }
+.primary-button:hover { background: var(--accent-hover); }
 .copy-status { color: var(--accent); margin-top: .5rem; }
 .copy-fallback { margin-top: .75rem; }
 .print-only { display: none; }
@@ -122,6 +142,8 @@ button:hover { border-color: var(--accent); }
 
 @media screen and (max-width: 420px) {
   .details { grid-template-columns: minmax(0, 1fr); }
+  .page-header { align-items: flex-start; gap: .75rem; }
+  .brand-mark { width: 2.75rem; height: 2.75rem; border-radius: .75rem; }
 }
 
 @page { size: A4; margin: 15mm; }
@@ -129,14 +151,16 @@ button:hover { border-color: var(--accent); }
 @media print {
   :root { color: #000; background: #fff; font-size: 11pt; }
   .estimate { width: auto; margin: 0; }
-  .page-header, .screen-only, .adjustments, button, input, select, textarea, .mobile-label {
+  .screen-only, .adjustments, button, input, select, textarea, .mobile-label {
     display: none !important;
   }
   .print-only { display: block; }
-  .print-title { font-size: 21pt; letter-spacing: normal; margin-bottom: 6mm; }
+  .page-header { gap: 3mm; margin-bottom: 6mm; break-inside: avoid; }
+  .brand-mark { width: 10mm; height: 10mm; border-radius: 2mm; background: #fff; color: var(--accent); }
+  .print-title { font-size: 21pt; letter-spacing: normal; overflow-wrap: anywhere; }
   .print-value { font-size: 11pt; font-weight: 400; overflow-wrap: anywhere; white-space: pre-wrap; }
   .details .print-value { margin-top: 1mm; }
-  .card { border: 0; border-radius: 0; padding: 0; }
+  .card { background: #fff; border: 0; border-radius: 0; padding: 0; }
   .card + .card { margin-top: 5mm; }
   h1, h2, .notes > label { break-after: avoid; }
   .details, .items tr, .totals, .signature { break-inside: avoid; }

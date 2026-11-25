@@ -16,9 +16,12 @@ const copyButton = document.querySelector("#copy-estimate");
 const copyStatus = document.querySelector("#copy-status");
 const copyFallback = document.querySelector("#copy-fallback");
 const copyText = document.querySelector("#copy-text");
+const addressFields = [
+  document.querySelector("#sender-address"), document.querySelector("#recipient-address")
+];
 const detailFields = [
   document.querySelector("#sender"), document.querySelector("#recipient"), numberField, dateField,
-  discountField, taxField, currencyField, document.querySelector("#comment")
+  ...addressFields, discountField, taxField, currencyField, document.querySelector("#comment")
 ];
 const defaults = Object.fromEntries(detailFields.map((field) => [field.id, field.value]));
 const itemKeys = ["name", "quantity", "unit", "price"];
@@ -138,6 +141,9 @@ function restoreDraft() {
     draft = JSON.parse(localStorage.getItem(storageKey));
   } catch {
     // Start with the default fields when no usable draft is available.
+  }
+  if (!draft) {
+    for (const field of addressFields) field.value = field.placeholder;
   }
   for (const field of detailFields) setField(field, draft?.details?.[field.id]);
   if (Array.isArray(draft?.positions)) {
